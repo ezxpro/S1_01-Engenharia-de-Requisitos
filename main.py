@@ -24,8 +24,12 @@ def main():
         except ValueError:
             print(f"\n\n\nERRO: Opção inválida. Digite um número inteiro.\n\n\n")
         else:
-            if opção == 1:
-                crud.create()
+            match opção:
+                case 1:
+                    crud.create()
+                case _:
+                    break
+                    
 
 
 
