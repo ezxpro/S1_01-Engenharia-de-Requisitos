@@ -2,6 +2,9 @@ import persistencia
 
 banco_ativos = persistencia.carregar_dados()
 
+def id_existe(id_ativo):
+    return id_ativo in banco_ativos
+
 def cadastrar_ativo(id_ativo, nome, responsável, localização, tipo):
     ativo = {
     "id": id_ativo,

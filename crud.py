@@ -15,6 +15,9 @@ def create():
 
         id_ativo = str(id_ativo) # converte essa bomba em string pra evitar problema depois
 
+        if ativos.id_existe(id_ativo):
+            print(f"\nERRO: já existe um ativo cadastrado com ID {id_ativo}. Tente outro.\n")
+            continue
 
         nome = input("Digite o nome do ativo: ").strip()
         if nome == "":
