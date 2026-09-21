@@ -25,10 +25,13 @@ def main():
             print(f"\nERRO: Opção inválida. Digite um número inteiro.\n")
         else:
             match opção:
+                case 0:
+                    print("Saindo do sistema...")
+                    break
                 case 1:
                     crud.create()
                 case _:
-                    break
+                    print("\nOpção não implementada ou inválida.\n")
                     
 
 
