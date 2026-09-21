@@ -6,14 +6,14 @@ def create():
     while True:
         print('== CADASTRAR ATIVO ==')
         try:
-            id = int(input("Digite ID do ativo: "))
-            if id == 0:
+            id_ativo = int(input("Digite ID do ativo: "))
+            if id_ativo == 0:
                 raise ValueError
         except ValueError:
             print(f"\nERRO: Opção inválida. Digite um número inteiro positivo.\n")
             continue
 
-        id = str(id) # converte essa bomba em string pra evitar problema depois
+        id_ativo = str(id_ativo) # converte essa bomba em string pra evitar problema depois
 
 
         nome = input("Digite o nome do ativo: ").strip()
@@ -55,7 +55,7 @@ def create():
         else:
             print(f"Ativo cadastrado com sucesso →  TIPO: {tipo} → {tipos.TipoAtivo(tipo).name} ")
 
-        novo_ativo = ativos.cadastrarAtivo(ID=id, nome=nome, responsável=responsável, localização=localização, tipo=tipo)
+        ativos.cadastrar_ativo(id_ativo=id_ativo, nome=nome, responsável=responsável, localização=localização, tipo=tipo)
         while True:
             continuar = input("Deseja cadastrar outro ativo? (s/n): ").strip().lower()  
             match continuar:
