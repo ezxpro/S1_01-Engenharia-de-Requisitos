@@ -70,3 +70,7 @@ def create():
                 case _:
                     print("Valor digitado incorreto. Por favor, digite 's' ou 'n'.")
                     continue
+
+
+def read():
+    while True:

@@ -22,3 +22,6 @@ def cadastrar_ativo(id_ativo, nome, responsável, localização, tipo):
     persistencia.salvar_dados(banco_ativos)
 
     return ativo
+
+def buscar_ativo(id_ativo):
+    return banco_ativos.get(id_ativo)
