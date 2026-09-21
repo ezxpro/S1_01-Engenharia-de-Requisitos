@@ -1,8 +1,10 @@
-banco_ativos = {}
+import persistencia
 
-def cadastrarAtivo(ID, nome, responsável, localização, tipo):
+banco_ativos = persistencia.carregar_dados()
+
+def cadastrarAtivo(id_ativo, nome, responsável, localização, tipo):
     ativo = {
-    "id": ID,
+    "id": id_ativo,
     "nome": nome,
     "responsável" : responsável,
     "localização": localização,
@@ -10,6 +12,6 @@ def cadastrarAtivo(ID, nome, responsável, localização, tipo):
     "vulnerabilidades": []
     }
 
-    banco_ativos[ID] = ativo
+    banco_ativos[id_ativo] = ativo
 
     return ativo
