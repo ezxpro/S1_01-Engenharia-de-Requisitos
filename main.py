@@ -22,7 +22,7 @@ def main():
         try:
             opção = int(input("Digite sua opção: "))
         except ValueError:
-            print(f"\n\n\nERRO: Opção inválida. Digite um número inteiro.\n\n\n")
+            print(f"\nERRO: Opção inválida. Digite um número inteiro.\n")
         else:
             match opção:
                 case 1:

@@ -52,7 +52,7 @@ def create():
         else:
             print(f"Ativo cadastrado com sucesso →  TIPO: {tipo} → {tipos.TipoAtivo(tipo).name} ")
 
-        ativos.cadastrarAtivo(ID=id, nome=nome, responsável=responsável, localização=localização, tipo=tipo)
+        novo_ativo = ativos.cadastrarAtivo(ID=id, nome=nome, responsável=responsável, localização=localização, tipo=tipo)
         while True:
             continuar = input("Deseja cadastrar outro ativo? (s/n): ").strip().lower()  
             match continuar:
