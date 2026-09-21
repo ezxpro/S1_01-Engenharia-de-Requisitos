@@ -2,7 +2,7 @@ import persistencia
 
 banco_ativos = persistencia.carregar_dados()
 
-def cadastrarAtivo(id_ativo, nome, responsável, localização, tipo):
+def cadastrar_ativo(id_ativo, nome, responsável, localização, tipo):
     ativo = {
     "id": id_ativo,
     "nome": nome,
@@ -12,6 +12,10 @@ def cadastrarAtivo(id_ativo, nome, responsável, localização, tipo):
     "vulnerabilidades": []
     }
 
+    # atualiza estado em memória
     banco_ativos[id_ativo] = ativo
+
+    # aciona persistência para garantiar que a alteração seja gravada no disco
+    persistencia.salvar_dados(banco_ativos)
 
     return ativo
