@@ -7,25 +7,50 @@ def create():
         print('== CADASTRAR ATIVO ==')
         try:
             id = int(input("Digite ID do ativo: "))
+            if id == 0:
+                raise ValueError
         except ValueError:
-            print(f"\n\n\nERRO: Opção inválida. Digite um número inteiro.\n\n\n")
+            print(f"\nERRO: Opção inválida. Digite um número inteiro positivo.\n")
             continue
-        nome = input("Digite o nome do ativo: ")
-        responsável = input("Digite nome do responsável pelo ativo: ")
-        localização = input("Digite o setor/localização do ativo: ")
-        print("Digite o tipo do ativo. Tipos disponíveis: ")
+
+        nome = input("Digite o nome do ativo: ").strip()
+        if nome == "":
+            print("Nome inválido. Não pode estar em branco.")
+            continue
+        elif nome.isnumeric():
+            print("Inválido, não pode conter apenas números.")
+            continue
+
+        responsável = input("Digite nome do responsável pelo ativo: ").strip()
+        if responsável == "" or responsável.replace(" ", "").isalpha() == False:
+            print("Nome do responsável inválido. Não pode estar em branco e deve conter somente letras.")
+            continue
+
+        localização = input("Digite o setor/localização do ativo: ").strip()
+        if localização == "":
+            print("Localização inválida. Nâo estar em branco.")
+            continue
+
+        elif localização.isnumeric():
+            print("Localização inválida. Não pode ser valor numérico.")
+            continue
+
+        print("Digite o tipo do ativo. Tipos disponíveis: \n")
         tipos_disponíveis = set()
         for t in tipos.TipoAtivo:
             tipos_disponíveis.add(t.value)
             print(f"Categoria de ativo {t.name} → Digite código '{t.value}'")
-
+        print('\n')
         try:
             tipo = int(input("Digite o código do tipo de ativo: "))
-            if(tipo not in tipos_disponíveis):
+            if tipo not in tipos_disponíveis:
                 raise ValueError
+
         except ValueError:
             print("Código digitado inválido, digite um dos códigos fornecidos")
             continue
+        else:
+            print(f"Ativo cadastrado com sucesso →  TIPO: {tipo} → {tipos.TipoAtivo(tipo).name} ")
 
         ativos.cadastrarAtivo(ID=id, nome=nome, responsável=responsável, localização=localização, tipo=tipo)
         while True:
