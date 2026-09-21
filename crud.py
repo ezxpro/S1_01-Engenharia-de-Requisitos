@@ -14,18 +14,22 @@ def create():
         responsável = input("Digite nome do responsável pelo ativo: ")
         localização = input("Digite o setor/localização do ativo: ")
         print("Digite o tipo do ativo. Tipos disponíveis: ")
+        tipos_disponíveis = set()
         for t in tipos.TipoAtivo:
+            tipos_disponíveis.add(t.value)
             print(f"Categoria de ativo {t.name} → Digite código '{t.value}'")
+
         try:
             tipo = int(input("Digite o código do tipo de ativo: "))
+            if(tipo not in tipos_disponíveis):
+                raise ValueError
         except ValueError:
             print("Código digitado inválido, digite um dos códigos fornecidos")
             continue
-    
 
         ativos.cadastrarAtivo(ID=id, nome=nome, responsável=responsável, localização=localização, tipo=tipo)
-        continuar = input("Deseja cadastrar outro ativo? (s/n): ").strip.lower()
         while True:
+            continuar = input("Deseja cadastrar outro ativo? (s/n): ").strip().lower()  
             match continuar:
                 case "s":
                     break
@@ -34,3 +38,4 @@ def create():
                     return
                 case _:
                     print("Valor digitado incorreto. Por favor, digite 's' ou 'n'.")
+                    continue
