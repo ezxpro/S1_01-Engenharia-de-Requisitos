@@ -13,6 +13,9 @@ def create():
             print(f"\nERRO: Opção inválida. Digite um número inteiro positivo.\n")
             continue
 
+        id = str(id) # converte essa bomba em string pra evitar problema depois
+
+
         nome = input("Digite o nome do ativo: ").strip()
         if nome == "":
             print("Nome inválido. Não pode estar em branco.")
