@@ -74,3 +74,31 @@ def create():
 
 def read():
     while True:
+        print('== BUSCAR ATIVO ==')
+        print("""
+        1. Buscar por ID
+        2. Buscar por nome
+        3. Buscar por responsável
+        0. Sair""")
+
+        opção = input("Entre com a opção de busca desejada: ").strip().lower()
+        if not opção.isdigit():
+            print("Opção inválida, digite um valor inteiro positivo.\n")
+            continue
+        else:
+            opção = int(opção)
+            match opção:
+                case 1:
+                    try:
+                        id_ativo = int(input("Digite ID do ativo: "))
+                        if id_ativo == 0:
+                            raise ValueError
+                    except ValueError:
+                        print(f"\nERRO: Opção inválida. Digite um número inteiro positivo.\n")
+                        continue
+
+                    id_ativo = str(id_ativo)
+
+                    ativo_buscado = ativos.buscar_ativo(id_ativo)
+                # case 2:
+                    
