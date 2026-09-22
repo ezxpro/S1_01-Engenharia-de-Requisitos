@@ -18,7 +18,7 @@ def cadastrar_ativo(id_ativo, nome, responsável, localização, tipo):
     # atualiza estado em memória
     banco_ativos[id_ativo] = ativo
 
-    # aciona persistência para garantiar que a alteração seja gravada no disco
+    # aciona persistência para garantir que a alteração seja gravada no disco
     persistencia.salvar_dados(banco_ativos)
 
     return ativo
