@@ -99,6 +99,15 @@ def read():
 
                     id_ativo = str(id_ativo)
 
-                    ativo_buscado = ativos.buscar_ativo(id_ativo)
+                    ativo = ativos.buscar_ativo(id_ativo)
+                    if ativo is None:
+                        print(f"\nERRO: Não existe ativo cadastrado com ID {id_ativo}.\n")
+                        continue
+                    else:
+                        print(f"ATIVO ENCONTRADO COM SUCESSO:\nID: {ativo["id"]}\nNOME: {ativo["nome"]}\n"+
+                              f"RESPONSÁVEL: {ativo["responsável"]}\n"f"LOCALIZAÇÃO: {ativo["localização"]}\n"
+                              +f"TIPO: {ativo["tipo"]}")
+                        
+
                 # case 2:
                     
