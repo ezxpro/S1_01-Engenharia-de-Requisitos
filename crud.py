@@ -108,6 +108,38 @@ def read():
                               f"RESPONSÁVEL: {ativo["responsável"]}\n"f"LOCALIZAÇÃO: {ativo["localização"]}\n"
                               +f"TIPO: {ativo["tipo"]}")
                         
+                case 2:
+                    nome = input("Digite o nome a ser buscado: ").lower().strip()
+                    if nome == "":
+                        print("\nERRO: Valor inválido. O nome não pode estar")
+                        continue
 
-                # case 2:
+                    encontrados = False
+                    for ativo in ativos.banco_ativos.values():
+                        if nome in ativo["nome"].lower():
+                            print(f"\nATIVO ENCONTRADO:\nID: {ativo['id']}\nNOME: {ativo['nome']}\n"
+                                  f"RESPONSÁVEL: {ativo['responsável']}\nLOCALIZAÇÃO: {ativo['localização']}\n"
+                                  f"TIPO: {ativo['tipo']}")
+                            encontrados = True
+
+                    if not encontrados:
+                        print(f"\nNenhum ativo encontrado contendo o nome '{nome}'.\n")
+                case 3:
+                    responsavel = input("Digite o responsável a ser buscado: ").lower().strip()
+                    if responsavel == "" or responsavel.replace(" ", "").isalpha() == False:
+                        print("\nERRO: Valor inválido. Digite apenas letras.\n")
+                        continue
                     
+                    encontrados = False
+                    for ativo in ativos.banco_ativos.values():
+                        if responsavel in ativo["responsável"].lower():
+                            print(f"\nATIVO ENCONTRADO:\nID: {ativo['id']}\nNOME: {ativo['nome']}\n"
+                                  f"RESPONSÁVEL: {ativo['responsável']}\nLOCALIZAÇÃO: {ativo['localização']}\n"
+                                  f"TIPO: {ativo['tipo']}")
+                            encontrados = True
+                            
+                    if not encontrados:
+                        print(f"\nNenhum ativo encontrado para o responsável '{responsavel}'.\n")
+                
+                case _:
+                    print("\nOpção inválida. Escolha uma das opções do menu.\n")

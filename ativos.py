@@ -25,3 +25,8 @@ def cadastrar_ativo(id_ativo, nome, responsável, localização, tipo):
 
 def buscar_ativo(id_ativo):
     return banco_ativos.get(id_ativo)
+
+def buscar_ativos_por_nome(nome):
+    for ativo in banco_ativos.values:
+        if nome.strip().lower() == ativo["nome"]:
+            return ativo
