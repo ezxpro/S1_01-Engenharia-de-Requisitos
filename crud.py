@@ -143,3 +143,111 @@ def read():
                 
                 case _:
                     print("\nOpção inválida. Escolha uma das opções do menu.\n")
+
+
+def update():
+    print("== ATUALIZAR ATIVO ==")
+    id_ativo = input("Digite o ID do ativo que deseja atualizar: ").strip()
+
+    ativo = ativos.buscar_ativo(id_ativo)
+    if not ativo:
+        print(f"\nERRO: Não existe ativo cadastrado com ID {id_ativo}.\n")
+        return
+
+    print("Deixe o campo em branco e aperte Enter para manter o valor atual.")
+
+    novo_nome = input(f"Novo nome [{ativo['nome']}]: ").strip()
+    novo_responsavel = input(f"Novo responsável [{ativo['responsável']}]: ").strip()
+    nova_localizacao = input(f"Nova localização [{ativo['localização']}]: ").strip()
+    
+    print(f"Tipo atual: {ativo['tipo']}")
+    novo_tipo_str = input("Novo código de tipo de ativo: ").strip()
+    
+    novo_tipo = None
+    if novo_tipo_str.isdigit():
+        tipo_temp = int(novo_tipo_str)
+        tipos_validos = [t.value for t in tipos.TipoAtivo]
+        if tipo_temp in tipos_validos:
+            novo_tipo = tipo_temp
+        else:
+            print("Tipo inválido. O tipo não será alterado.")
+
+    ativos.atualizar_ativo(
+        id_ativo, 
+        nome=novo_nome if novo_nome else None, 
+        responsável=novo_responsavel if novo_responsavel else None, 
+        localização=nova_localizacao if nova_localizacao else None, 
+        tipo=novo_tipo
+    )
+    print("\nAtivo atualizado com sucesso!\n")
+
+
+def delete():
+    print('== DELETAR ATIVO ==')
+    id_ativo = input("Digite o ID do ativo que deseja remover: ").strip()
+    
+    if not ativos.id_existe(id_ativo):
+        print(f"\nERRO: Não existe ativo cadastrado com ID {id_ativo}.\n")
+        return
+    
+    confirmacao = input(f"Tem a certeza que deseja remover o ativo {id_ativo}? (s/n): ").strip().lower()
+    if confirmacao == 's':
+        if ativos.deletar_ativo(id_ativo):
+            print("\nAtivo removido com sucesso, incluindo todas as vulnerabilidades associadas!\n")
+        else:
+            print("\nOcorreu um erro ao remover o ativo.\n")
+    else:
+        print("\nOperação cancelada.\n")
+
+
+def cadastrar_vulnerabilidade():
+    print('== CADASTRAR VULNERABILIDADE ==')
+    id_ativo = input("Digite o ID do ativo afetado: ").strip()
+    
+    if not ativos.id_existe(id_ativo):
+        print(f"\nERRO: Não existe ativo cadastrado com ID {id_ativo}.\n")
+        return
+        
+    descricao = input("Descrição da vulnerabilidade: ").strip()
+    if descricao == "":
+        print("A descrição não pode estar vazia.")
+        return
+        
+    categoria = input("Categoria/Tipo da vulnerabilidade (ex: software desatualizado, permissão indevida): ").strip()
+    
+    print("Severidade - Opções: baixa, média, alta, crítica")
+    severidade = input("Digite a severidade: ").strip().lower()
+    if severidade not in ["baixa", "média", "media", "alta", "crítica", "critica"]:
+        print("Severidade inválida.")
+        return
+        
+    print("Status - Opções: aberta, em tratamento, corrigida, aceita")
+    status = input("Digite o status de tratamento: ").strip().lower()
+    if status not in ["aberta", "em tratamento", "corrigida", "aceita"]:
+        print("Status inválido.")
+        return
+        
+    ativos.adicionar_vulnerabilidade(id_ativo, descricao, categoria, severidade, status)
+    print("\nVulnerabilidade cadastrada com sucesso!\n")
+
+
+def ver_vulnerabilidades():
+    print('== VER VULNERABILIDADES ==')
+    id_ativo = input("Digite o ID do ativo: ").strip()
+    
+    ativo = ativos.buscar_ativo(id_ativo)
+    if not ativo:
+        print(f"\nERRO: Não existe ativo cadastrado com ID {id_ativo}.\n")
+        return
+        
+    vulns = ativo.get("vulnerabilidades", [])
+    if not vulns:
+        print(f"\nO ativo '{ativo['nome']}' (ID: {id_ativo}) está sem vulnerabilidades registadas.\n")
+    else:
+        print(f"\nVULNERABILIDADES DO ATIVO '{ativo['nome']}' (ID: {id_ativo}):")
+        for i, v in enumerate(vulns, 1):
+            print(f"--- Vulnerabilidade {i} ---")
+            print(f"Descrição: {v['descricao']}")
+            print(f"Categoria: {v['categoria']}")
+            print(f"Severidade: {v['severidade']}")
+            print(f"Status: {v['status']}\n")

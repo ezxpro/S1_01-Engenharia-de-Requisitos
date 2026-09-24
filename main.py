@@ -9,7 +9,6 @@ import crud
 def main():
 
     while True:
-        print("Bem vindo ao Sistema de Cadastro e Gerenciamento de Ativos de TI")
         print("== MENU ==")
         print('''Selecione uma das seguintes opções:
         1. Cadastrar ativo
@@ -34,13 +33,19 @@ def main():
                     crud.create()
                 case 2:
                     crud.read()
+                case 3:
+                    crud.update()
+                case 4:
+                    crud.delete()
+                case 5:
+                    crud.cadastrar_vulnerabilidade()
+                case 6:
+                    crud.ver_vulnerabilidades()
                 case _:
                     print("\nOpção não implementada ou inválida.\n")
                     
 
                     
-
-
 
 if __name__ == "__main__":
     main()
