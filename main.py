@@ -3,6 +3,8 @@ import ativos
 import persistencia
 import crud
 
+# SISTEMA DE CADASTRAO E GERENCIAMENTO DE ATIVOS E DADOS DE TI
+
 
 def main():
 
@@ -30,11 +32,11 @@ def main():
                     break
                 case 1:
                     crud.create()
+                case 2:
+                    crud.read()
                 case _:
                     print("\nOpção não implementada ou inválida.\n")
                     
-
-
 
                     
 
