@@ -79,7 +79,7 @@ def read():
         1. Buscar por ID
         2. Buscar por nome
         3. Buscar por responsável
-        0. Sair""")
+        0. Retornar ao menu anterior""")
 
         opção = input("Entre com a opção de busca desejada: ").strip().lower()
         if not opção.isdigit():
@@ -140,7 +140,8 @@ def read():
                             
                     if not encontrados:
                         print(f"\nNenhum ativo encontrado para o responsável '{responsavel}'.\n")
-                
+                case 0:
+                    return
                 case _:
                     print("\nOpção inválida. Escolha uma das opções do menu.\n")
 
