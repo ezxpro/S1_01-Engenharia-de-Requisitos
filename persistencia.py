@@ -1,16 +1,16 @@
 import json
 
-ARQUIVO = "banco_ativos.json"
+
+def salvar_lista(arquivo, lista):
+    """Grava uma lista de dicionários como um array de objetos JSON."""
+    with open(arquivo, 'w', encoding='utf-8') as f:
+        json.dump(lista, f, indent=4, ensure_ascii=False)
 
 
-def salvar_dados(banco_ativos):
-    with open(ARQUIVO, 'w', encoding='utf-8') as arquivo:
-        json.dump(banco_ativos, arquivo, indent=4, ensure_ascii=False)
-
-
-def carregar_dados():
+def carregar_lista(arquivo):
+    """Lê o array de objetos JSON. Arquivo inexistente = lista vazia."""
     try:
-        with open(ARQUIVO, 'r', encoding='utf-8') as arquivo:
-            return json.load(arquivo)
+        with open(arquivo, 'r', encoding='utf-8') as f:
+            return json.load(f)
     except FileNotFoundError:
-        return {}
+        return []
