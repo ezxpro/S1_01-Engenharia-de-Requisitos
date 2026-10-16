@@ -99,3 +99,8 @@ class Vulnerabilidade:
     def from_dict(cls, d):
         return cls(d["id"], d["descricao"], d["categoria"], d["severidade"],
                    d["status"], d["equipamentos"])
+
+    
+def __str__(self):
+    return (f"[{self.id}] {self.descricao} ({self.categoria}) - "
+            f"CVSS {self.severidade} ({self.classificacao}) - {self.status}")
