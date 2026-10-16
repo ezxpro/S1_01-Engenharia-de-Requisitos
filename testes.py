@@ -56,7 +56,11 @@ class TestVulnerabilidade(unittest.TestCase):
         v.associar(3)
         with self.assertRaises(ValueError):
             v.associar(3)
-            
+
+    def test_descricao_vazia(self):
+        with self.assertRaises(ValueError):
+            Vulnerabilidade(1, "   ", "y", 5)
+        
 
 if __name__ == "__main__":
     unittest.main()
