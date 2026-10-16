@@ -64,26 +64,27 @@ class TestVulnerabilidade(unittest.TestCase):
         with self.assertRaises(ValueError):
             Vulnerabilidade(1, "   ", "y", 5)
 
-    class TestInventario(unittest.TestCase):
-        def setUp(self):
-            self.pasta = tempfile.TemporaryDirectory()
-            self.arq_e = os.path.join(self.pasta.name, "e.json")
-            self.arq_v = os.path.join(self.pasta.name, "v.json")
-            self.inv = Inventario(self.arq_e, self.arq_v)
 
-        def tearDown(self):
-            self.pasta.cleanup()
+class TestInventario(unittest.TestCase):
+    def setUp(self):
+        self.pasta = tempfile.TemporaryDirectory()
+        self.arq_e = os.path.join(self.pasta.name, "e.json")
+        self.arq_v = os.path.join(self.pasta.name, "v.json")
+        self.inv = Inventario(self.arq_e, self.arq_v)
 
-        def test_id_duplicado(self):
-            self.inv.cadastrar_equipamento(Servidor(1, "DNS", "Maria", "Datacenter"))
-            with self.assertRaises(ValueError):
-                self.inv.cadastrar_equipamento(Impressora(1, "HP", "Maria", "Recepção"))
+    def tearDown(self):
+        self.pasta.cleanup()
 
-        def test_salvar_e_recarregar(self):
-            self.inv.cadastrar_equipamento(Servidor(1, "DNS", "Maria", "Datacenter"))
-            novo = Inventario(self.arq_e, self.arq_v)   # lê do disco
-            self.assertIsInstance(novo.buscar_equipamento(1), Servidor)
-        
+    def test_id_duplicado(self):
+        self.inv.cadastrar_equipamento(Servidor(1, "DNS", "Maria", "Datacenter"))
+        with self.assertRaises(ValueError):
+            self.inv.cadastrar_equipamento(Impressora(1, "HP", "Maria", "Recepção"))
+
+    def test_salvar_e_recarregar(self):
+        self.inv.cadastrar_equipamento(Servidor(1, "DNS", "Maria", "Datacenter"))
+        novo = Inventario(self.arq_e, self.arq_v)   # lê do disco
+        self.assertIsInstance(novo.buscar_equipamento(1), Servidor)
+    
 
 if __name__ == "__main__":
     unittest.main()
