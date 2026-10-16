@@ -65,3 +65,66 @@ class Equipamento:
              "localização":self.responsavel, 
              "tipo": self.tipo,
         }
+
+    @classmethod
+    def from_dict(cls, dados):
+        return criar_equipamento(dados["tipo"], dados["id"], dados["nome"],
+                                 dados["responsavel"], dados["localizacao"])
+
+
+
+class Desktop(Equipamento):
+    tipo = TipoAtivo.DESKTOP
+    fator_exposicao = 1.0
+
+
+class Notebook(Equipamento):
+    tipo = TipoAtivo.NOTEBOOK
+    fator_exposicao = 1.1      # sai da rede da empresa
+
+
+class Servidor(Equipamento):
+    tipo = TipoAtivo.SERVIDOR
+    fator_exposicao = 1.5
+
+
+class Roteador(Equipamento):
+    tipo = TipoAtivo.ROTEADOR
+    fator_exposicao = 1.4
+
+
+class SoftwareLicenciado(Equipamento):
+    tipo = TipoAtivo.SOFTWARE_LICENCIADO
+    fator_exposicao = 1.0
+
+
+class SoftwareLivre(Equipamento):
+    tipo = TipoAtivo.SOFTWARE_LIVRE
+    fator_exposicao = 1.0
+
+
+class AplicacaoWeb(Equipamento):
+    tipo = TipoAtivo.APLICACAO_WEB
+    fator_exposicao = 1.6      # exposta à internet
+
+
+class Impressora(Equipamento):
+    tipo = TipoAtivo.IMPRESSORA
+    fator_exposicao = 0.8
+
+
+CLASSES = {
+    TipoAtivo.DESKTOP: Desktop,
+    TipoAtivo.NOTEBOOK: Notebook,
+    TipoAtivo.SERVIDOR: Servidor,
+    TipoAtivo.ROTEADOR: Roteador,
+    TipoAtivo.SOFTWARE_LICENCIADO: SoftwareLicenciado,
+    TipoAtivo.SOFTWARE_LIVRE: SoftwareLivre,
+    TipoAtivo.APLICACAO_WEB: AplicacaoWeb,
+    TipoAtivo.IMPRESSORA: Impressora,
+}
+
+
+    def criar_equipamento(tipo, id_equipamento, nome, responsavel, localizacao):
+        """Fábrica: escolhe a subclasse certa a partir do tipo."""
+        return CLASSES[tipo](id_equipamento, nome, responsavel, localizacao)
