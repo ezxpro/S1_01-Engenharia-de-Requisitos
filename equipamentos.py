@@ -1,5 +1,13 @@
+from tipos import TipoAtivo
+
+
 class Equipamento:
     '''Classe base de todos ativos do inventário'''
+
+    tipo = None # necessario porque ai cada subclasse vai ter seu proprio TipoAtivo
+    fator_exposição = 1.0 # cibersegurança
+
+
     def __init__(self, id_equipamento, nome, responsavel, localizacao):
         self.id = id_equipamento
         self.nome = nome
@@ -48,3 +56,12 @@ class Equipamento:
         if valor == "" or valor.isnumeric():
             raise ValueError("Localização inválida, não pode ser vázia nem só números.")
         self._localização = valor
+
+    def to_dict(self):
+        return {
+            "id": self.id, 
+            "nome": self.nome,
+             "responsavel": self.responsavel, 
+             "localização":self.responsavel, 
+             "tipo": self.tipo,
+        }
