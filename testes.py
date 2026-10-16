@@ -4,7 +4,7 @@ from equipamentos import Equipamento, Servidor, Impressora, criar_equipamento
 from ativos import TipoAtivo
 
 
-class TestEquipamento(unittest.TestarCaso):
+class TestEquipamento(unittest.TestCase):
     def test_cria_equipamento_valido(self):
         e = Equipamento(1, "  Servidor DNS ", "Maria Silva", "Datacenter")
         self.assertEqual(e.nome, "Servidor DNS")  # espaços removidos
@@ -23,7 +23,7 @@ class TestEquipamento(unittest.TestarCaso):
             Equipamento(1, "Nome", "Maria2", "Sala 1")
 
 
-class TestarSubclasses(unittest.TestarCaso):
+class TestarSubclasses(unittest.TestCase):
     def test_fabrica_cria_subclasse_certa(self):
         e = criar_equipamento(TipoAtivo.SERVIDOR, 1, "DNS", "Maria", "Datacenter")
         self.assertIsInstance(e, Servidor)

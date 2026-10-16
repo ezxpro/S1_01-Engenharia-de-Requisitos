@@ -1,18 +1,16 @@
 from tipos import TipoAtivo
 
-
 class Equipamento:
-    '''Classe base de todos ativos do inventário'''
+    """Classe base de todo ativo do inventário."""
 
-    tipo = None # necessario porque ai cada subclasse vai ter seu proprio TipoAtivo
-    fator_exposição = 1.0 # cibersegurança
-
+    tipo = None              # cada subclasse define o seu TipoAtivo
+    fator_exposicao = 1.0    # pondera o risco próprio (usado no cálculo de risco)
 
     def __init__(self, id_equipamento, nome, responsavel, localizacao):
         self.id = id_equipamento
         self.nome = nome
         self.responsavel = responsavel
-        self.localização = localização
+        self.localizacao = localizacao
 
     @property
     def id(self):
@@ -30,9 +28,10 @@ class Equipamento:
 
     @nome.setter
     def nome(self, valor):
-        self._nome = str(valor).strip()
+        valor = str(valor).strip()
         if valor == "" or valor.isnumeric():
-            raise ValueError("Nome inválido: não pode ser vazio nem somente números")
+            raise ValueError("Nome inválido: não pode ser vazio nem só números.")
+        self._nome = valor
 
     @property
     def responsavel(self):
@@ -41,37 +40,38 @@ class Equipamento:
     @responsavel.setter
     def responsavel(self, valor):
         valor = str(valor).strip()
-        if valor == "" or not valor.replace(" ","").isalpha():
-            raise ValueError( "Responsável inválido: somente letras"+
-                             " não pode deixar em branco"  )
+        if valor == "" or not valor.replace(" ", "").isalpha():
+            raise ValueError("Responsável inválido: somente letras, sem ficar em branco.")
         self._responsavel = valor
 
     @property
-    def localização(self):
-        return self._localização
+    def localizacao(self):
+        return self._localizacao
 
-    @localização.setter
-    def localização(self, valor):
+    @localizacao.setter
+    def localizacao(self, valor):
         valor = str(valor).strip()
         if valor == "" or valor.isnumeric():
-            raise ValueError("Localização inválida, não pode ser vázia nem só números.")
-        self._localização = valor
+            raise ValueError("Localização inválida: não pode ser vazia nem só números.")
+        self._localizacao = valor
+
+    def __str__(self):
+        return f"[{self.id}] {self.nome} ({type(self).__name__}) - {self.responsavel} - {self.localizacao}"
 
     def to_dict(self):
         return {
-            "id": self.id, 
+            "id": self.id,
             "nome": self.nome,
-             "responsavel": self.responsavel, 
-             "localização":self.responsavel, 
-             "tipo": self.tipo,
+            "responsavel": self.responsavel,
+            "localizacao": self.localizacao,
+            "tipo": self.tipo.value,
         }
 
     @classmethod
     def from_dict(cls, dados):
         return criar_equipamento(dados["tipo"], dados["id"], dados["nome"],
                                  dados["responsavel"], dados["localizacao"])
-
-
+    
 
 class Desktop(Equipamento):
     tipo = TipoAtivo.DESKTOP
@@ -125,6 +125,6 @@ CLASSES = {
 }
 
 
-    def criar_equipamento(tipo, id_equipamento, nome, responsavel, localizacao):
-        """Fábrica: escolhe a subclasse certa a partir do tipo."""
-        return CLASSES[tipo](id_equipamento, nome, responsavel, localizacao)
+def criar_equipamento(tipo, id_equipamento, nome, responsavel, localizacao):
+    """Fábrica: escolhe a subclasse certa a partir do tipo."""
+    return CLASSES[tipo](id_equipamento, nome, responsavel, localizacao)
