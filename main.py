@@ -1,11 +1,11 @@
-import crud
+from crud import CRUD
 from inventario import Inventario
 
 # SISTEMA DE CADASTRO E GERENCIAMENTO DE EQUIPAMENTOS E VULNERABILIDADES
 
 
 def main():
-    inv = Inventario()
+    crud = CRUD(Inventario())
 
     while True:
         print("== MENU ==")
@@ -31,19 +31,19 @@ def main():
                 print("Saindo do sistema...")
                 break
             case 1:
-                crud.create(inv)
+                crud.create()
             case 2:
-                crud.read(inv)
+                crud.read()
             case 3:
-                crud.update(inv)
+                crud.update()
             case 4:
-                crud.delete(inv)
+                crud.delete()
             case 5:
-                crud.cadastrar_vulnerabilidade(inv)
+                crud.cadastrar_vulnerabilidade()
             case 6:
-                crud.ver_vulnerabilidades(inv)
+                crud.ver_vulnerabilidades()
             case 7:
-                crud.associar(inv)
+                crud.associar()
             case _:
                 print("\nOpção inválida.\n")
 
