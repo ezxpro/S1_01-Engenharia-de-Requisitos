@@ -1,51 +1,52 @@
-from tipos import TipoAtivo
-import ativos
-import persistencia
 import crud
+from inventario import Inventario
 
-# SISTEMA DE CADASTRAO E GERENCIAMENTO DE ATIVOS E DADOS DE TI
+# SISTEMA DE CADASTRO E GERENCIAMENTO DE EQUIPAMENTOS E VULNERABILIDADES
 
 
 def main():
+    inv = Inventario()
 
     while True:
         print("== MENU ==")
         print('''Selecione uma das seguintes opções:
-        1. Cadastrar ativo
-        2. Buscar ativo
-        3. Atualizar ativo
-        4. Deletar ativo
-        5. Cadastrar vulnerabilidades
-        6. Ver vulnerabilidades de um ativo
+        1. Cadastrar equipamento
+        2. Buscar equipamento
+        3. Atualizar equipamento
+        4. Deletar equipamento
+        5. Cadastrar vulnerabilidade
+        6. Ver vulnerabilidades de um equipamento
+        7. Associar equipamento a uma vulnerabilidade
         0. Sair
         ''')
-        
-        try:
-            opção = int(input("Digite sua opção: "))
-        except ValueError:
-            print(f"\nERRO: Opção inválida. Digite um número inteiro.\n")
-        else:
-            match opção:
-                case 0:
-                    print("Saindo do sistema...")
-                    break
-                case 1:
-                    crud.create()
-                case 2:
-                    crud.read()
-                case 3:
-                    crud.update()
-                case 4:
-                    crud.delete()
-                case 5:
-                    crud.cadastrar_vulnerabilidade()
-                case 6:
-                    crud.ver_vulnerabilidades()
-                case _:
-                    print("\nOpção não implementada ou inválida.\n")
-                    
 
-                    
+        try:
+            opcao = int(input("Digite sua opção: "))
+        except ValueError:
+            print("\nERRO: digite um número inteiro.\n")
+            continue
+
+        match opcao:
+            case 0:
+                print("Saindo do sistema...")
+                break
+            case 1:
+                crud.create(inv)
+            case 2:
+                crud.read(inv)
+            case 3:
+                crud.update(inv)
+            case 4:
+                crud.delete(inv)
+            case 5:
+                crud.cadastrar_vulnerabilidade(inv)
+            case 6:
+                crud.ver_vulnerabilidades(inv)
+            case 7:
+                crud.associar(inv)
+            case _:
+                print("\nOpção inválida.\n")
+
 
 if __name__ == "__main__":
     main()
