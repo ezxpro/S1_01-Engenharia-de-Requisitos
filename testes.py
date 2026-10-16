@@ -1,7 +1,7 @@
 import unittest
 
 from equipamentos import Equipamento, Servidor, Impressora, criar_equipamento
-from ativos import TipoAtivo
+from tipos import TipoAtivo
 from vulnerabilidades import Vulnerabilidade
 
 

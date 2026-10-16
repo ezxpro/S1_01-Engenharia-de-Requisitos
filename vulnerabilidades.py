@@ -1,8 +1,11 @@
 STATUS_VALIDOS = ("aberta", "em tratamento", "corrigida", "aceita")
 
-class Vulnerabilidade:
 
-    def __init__(self, id_vuln, descricao, categoria, severidade, status="aberta", equipamentos=None):
+class Vulnerabilidade:
+    """Vulnerabilidade cadastrada, com a lista dos equipamentos que ela afeta."""
+
+    def __init__(self, id_vuln, descricao, categoria, severidade, status="aberta",
+                 equipamentos=None):
         self.id = id_vuln
         self.descricao = descricao
         self.categoria = categoria
@@ -10,11 +13,11 @@ class Vulnerabilidade:
         self.status = status
         self.equipamentos = [] if equipamentos is None else list(equipamentos)
 
-        @property
-        def descricao(self):
-            return self._descricao
+    @property
+    def descricao(self):
+        return self._descricao
 
-        descricao.setter
+    @descricao.setter
     def descricao(self, valor):
         valor = str(valor).strip()
         if valor == "":
