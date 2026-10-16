@@ -127,4 +127,4 @@ CLASSES = {
 
 def criar_equipamento(tipo, id_equipamento, nome, responsavel, localizacao):
     """Fábrica: escolhe a subclasse certa a partir do tipo."""
-    return CLASSES[tipo](id_equipamento, nome, responsavel, localizacao)
+    return CLASSES[TipoAtivo(tipo)](id_equipamento, nome, responsavel, localizacao)
