@@ -1,6 +1,7 @@
 import tipos
 from equipamentos import criar_equipamento
 from vulnerabilidades import Vulnerabilidade, STATUS_VALIDOS
+from risco import AnaliseRisco
 
 
 class CRUD:
@@ -8,6 +9,7 @@ class CRUD:
 
     def __init__(self, inventario):
         self.inv = inventario
+        self.risco = AnaliseRisco(inventario)
 
     # ---------- funções de apoio ----------
     @staticmethod
@@ -173,3 +175,15 @@ class CRUD:
         for v in vulns:
             print(f"  {v}")
         print()
+
+        # ---------- risco ----------
+    def ver_risco(self):
+        print('== RISCO DOS EQUIPAMENTOS ==')
+        riscos = self.risco.calcular()
+        if not riscos:
+            print("\nNenhum equipamento cadastrado.\n")
+            return
+        for id_equip, (proprio, efetivo) in riscos.items():
+            nome = self.inv.buscar_equipamento(id_equip).nome
+            print(f"[{id_equip}] {nome}: risco próprio = {proprio:.2f} | risco efetivo = {efetivo:.2f}")
+        print("\n(valores fictícios por enquanto)\n")

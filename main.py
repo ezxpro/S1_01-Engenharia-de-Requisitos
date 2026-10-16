@@ -17,6 +17,7 @@ def main():
         5. Cadastrar vulnerabilidade
         6. Ver vulnerabilidades de um equipamento
         7. Associar equipamento a uma vulnerabilidade
+        8. Ver risco dos equipamentos
         0. Sair
         ''')
 
@@ -44,6 +45,8 @@ def main():
                 crud.ver_vulnerabilidades()
             case 7:
                 crud.associar()
+            case 8:
+                crud.ver_risco()
             case _:
                 print("\nOpção inválida.\n")
 
