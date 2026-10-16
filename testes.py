@@ -2,6 +2,7 @@ import unittest
 
 from equipamentos import Equipamento, Servidor, Impressora, criar_equipamento
 from ativos import TipoAtivo
+from vulnerabilidades import Vulnerabilidade
 
 
 class TestEquipamento(unittest.TestCase):
@@ -38,6 +39,24 @@ class TestarSubclasses(unittest.TestCase):
         s = Servidor(1, "DNS", "Maria", "Datacenter")
         self.assertEqual(s.to_dict()["tipo"], 3)
 
+
+class TestVulnerabilidade(unittest.TestCase):
+    def test_classificacao_cvss(self):
+        casos = {0: "nenhuma", 3.9: "baixa", 4: "média", 7: "alta", 9.8: "crítica"}
+        for nota, esperado in casos.items():
+            self.assertEqual(Vulnerabilidade(1, "x", "y", nota).classificacao, esperado)
+
+    def test_severidade_fora_da_faixa(self):
+        for ruim in (-1, 10.1, "abc", None):
+            with self.assertRaises(ValueError):
+                Vulnerabilidade(1, "x", "y", ruim)
+
+    def test_associar_duplicado(self):
+        v = Vulnerabilidade(1, "x", "y", 5)
+        v.associar(3)
+        with self.assertRaises(ValueError):
+            v.associar(3)
+            
 
 if __name__ == "__main__":
     unittest.main()
