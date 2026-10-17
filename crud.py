@@ -5,7 +5,7 @@ from risco import AnaliseRisco
 
 
 class CRUD:
-    """Telas do menu. Cada método é uma opção; usa o Inventario para o trabalho de verdade."""
+    """Telas do menu. Cada método é uma opção; usa o Inventario executar operações"""
 
     def __init__(self, inventario):
         self.inv = inventario
@@ -13,10 +13,10 @@ class CRUD:
 
     # ---------- funções de apoio ----------
     @staticmethod
-    def pedir_id(texto="Digite o ID do equipamento: "):
+    def pedir_id(texto="Digite o ID do equipamento (0 para retornar ao menu principal): "):
         """Pede um inteiro positivo. Devolve None se a entrada for inválida."""
         entrada = input(texto).strip()
-        if not entrada.isdigit() or int(entrada) == 0:
+        if not entrada.isdigit():
             print("\nERRO: digite um número inteiro positivo.\n")
             return None
         return int(entrada)
@@ -35,6 +35,9 @@ class CRUD:
         while True:
             print('== CADASTRAR EQUIPAMENTO ==')
             id_equip = self.pedir_id("Digite o ID do equipamento: ")
+            if id_equip == 0:
+                print("Retornando ao menu principal...")
+                return
             if id_equip is None:
                 continue
             if self.inv.id_existe(id_equip):
@@ -75,7 +78,7 @@ class CRUD:
                 if id_equip is None:
                     continue
                 equip = self.inv.buscar_equipamento(id_equip)
-                achados = [equip] if equip else []
+                achados = [equip] if equip else [] # retorna lista se tiver algo, se não retorna vazia
             elif opcao == "2":
                 achados = self.inv.buscar_por_nome(input("Nome (ou parte dele): "))
             elif opcao == "3":
@@ -87,7 +90,7 @@ class CRUD:
             if not achados:
                 print("\nNenhum equipamento encontrado.\n")
             for equip in achados:
-                print(f"\n{equip}")
+                print(f"\n{equip} xxxxxxx")
 
     def update(self):
         print("== ATUALIZAR EQUIPAMENTO ==")
