@@ -131,6 +131,12 @@ class Equipamento:
             "vulnerabilidades": [v.to_dict() for v in self.vulnerabilidades]  
         }
 
+    def risco_proprio(self):
+        return 2.0 * len(self.vulnerabilidades)   # valor fictício 
+
+    def risco_efetivo(self):
+        return self.risco_proprio() * 1.5         # valor fictício
+    
     @classmethod
     def from_dict(cls, dados):
         equipamento = cls(dados["id"], dados["nome"], dados["responsavel"],

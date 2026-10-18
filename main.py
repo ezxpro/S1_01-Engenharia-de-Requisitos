@@ -44,7 +44,6 @@ def main():
                     print("\nOpção não implementada ou inválida.\n")
                     
 
-                    
 
 if __name__ == "__main__":
     main()
