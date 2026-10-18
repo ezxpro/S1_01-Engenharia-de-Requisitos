@@ -2,18 +2,17 @@ import tipos
 from ativos import Equipamento, Vulnerabilidade
 
 class CRUD:
-    def create(self):
-        def __init__(self, inventario):
-            self.inv = inventario
+    def __init__(self, inventario):
+        self._inv = inventario
 
-        @staticmethod
-        def ler_id(texto):
-            '''Pede um id ate receber um válido. Devolde ID se positivo ou None se 0'''
-            entrada = input(texto).strip()
-            if entrada.isdecimal():
-                numero =int(entrada)
-                return numero if numero > 0 else None
-            print("\nERRO: Digite um número inteiro positivo (ou 0 para voltar).\n")
+    @staticmethod
+    def ler_id(texto):
+        '''Pede um id ate receber um válido. Devolde ID se positivo ou None se 0'''
+        entrada = input(texto).strip()
+        if entrada.isdecimal():
+            numero = int(entrada)
+            return numero if numero > 0 else None
+        print("\nERRO: Digite um número inteiro positivo (ou 0 para voltar).\n")
     
     def create(self):
         while True:
@@ -49,6 +48,7 @@ class CRUD:
                         return
                     case _:
                         print("Valor digiado incorreto. Por favor, digite 's' ou 'n'.")
+
     def read(self):
         while True:
             print("== BUSCAR ATIVO ==")
@@ -89,7 +89,7 @@ class CRUD:
                     if not encontrados:
                         print(f"\nNenhum ativo encontrado contendo o nome '{nome}'.\n")
                 
-               case 3:
+                case 3:
                     responsavel = input("Digite o responsável a ser buscado: ").strip()
                     if responsavel == "":
                         print("\nERRO: Valor inválido. O responsável não pode estar em branco.\n")
