@@ -67,3 +67,28 @@ def adicionar_vulnerabilidade(id_ativo, descricao, categoria, severidade, status
         persistencia.salvar_dados(banco_ativos)
         return True
     return False
+
+class Vulnerabilidade:
+    def __init__(self, descricao, categoria, severidade, status):
+        self.descricao = descricao
+        self.categoria = categoria
+        self.severidade = severidade
+        self.status = status
+
+        def __str__(self):
+            return ( f"Descrição: {self.descricao}\n"
+                f"Categoria: {self.categoria}\n"
+                f"Severidade: {self.severidade}\n"
+                f"Status: {self.status}"
+            )
+
+        def to_dict(self):
+            return {
+                "descricao": self.descricao,
+                "categoria": self.categoria,
+                "severidade": self.severidade,
+                }
+        @classmethod
+        def from_dict():
+            return cls(dados["descricao"], dados["categoria"],
+                    dados["severidade"], dados["status"])
