@@ -1,3 +1,4 @@
+from tipos import TipoAtivo
 import persistencia
 
 banco_ativos = persistencia.carregar_dados()
@@ -92,3 +93,24 @@ class Vulnerabilidade:
         def from_dict():
             return cls(dados["descricao"], dados["categoria"],
                     dados["severidade"], dados["status"])
+
+class Equipamento:
+    def __init__(self, id_equipamento, nome, responsavel, localizacao, tipo):
+        self.id = id_equipamento
+        self.nome = nome
+        self. responsavel = responsavel
+        self. localizacao = localizacao
+        self.tipo = tipo
+        self.vulnerabilidades = []
+
+def adicionar_vulnerabilidades(self, vulnerabilidade):
+    self.vulnerabilidades.append(vulnerabilidade)
+
+
+def __str__(self):
+    return (f"ID: {self.id}"
+            f"NOME: {self.nome}"
+            f"RESPONSÁVEL: {self.responsavel}"
+            f"LOCALIZAÇÃO: {self.localizacao}"
+            f"TIPO: {self.tipo.nome}"
+            )
