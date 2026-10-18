@@ -161,7 +161,7 @@ class Inventario:
     def buscar(self, id_equipamento):
         return self.equipamentos.get(id_equipamento)
 
-        def buscar_por_nome(self, trecho):
+    def buscar_por_nome(self, trecho):
         trecho = trecho.strip().lower()
         return [e for e in self.equipamentos.values() if trecho in e.nome.lower()]
 
