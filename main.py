@@ -1,13 +1,13 @@
 from tipos import TipoAtivo
 import ativos
 import persistencia
-import crud
+from crud import CRUD
 
 # SISTEMA DE CADASTRAO E GERENCIAMENTO DE ATIVOS E DADOS DE TI
 
 
 def main():
-
+    crud = CRUD()
     while True:
         print("== MENU ==")
         print('''Selecione uma das seguintes opções:
