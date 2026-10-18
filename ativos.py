@@ -138,3 +138,25 @@ class Equipamento:
         for v in dados["vulnerabilidades"]:
             equipamento.adicionar_vulnerabilidade(Vulnerabilidade.from_dict(v))
         return equipamento
+
+
+class Inventario:
+    def __init__(self, persistencia):
+        self.persistencia = persistencia
+        self.equipamentos = {}            # {id: Equipamento}
+        for dados in self.persistencia.carregar():
+            equipamento = Equipamento.from_dict(dados)
+            self.equipamentos[equipamento.id] = equipamento
+
+    def salvar(self):
+        self.persistencia.salvar([e.to_dict() for e in self.equipamentos.values()])
+
+    def id_existe(self, id_equipamento):
+        return id_equipamento in self.equipamentos
+
+    def cadastrar(self, equipamento):
+        self.equipamentos[equipamento.id] = equipamento
+        self.salvar()
+
+    def buscar(self, id_equipamento):
+        return self.equipamentos.get(id_equipamento)
