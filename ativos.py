@@ -69,6 +69,7 @@ def adicionar_vulnerabilidade(id_ativo, descricao, categoria, severidade, status
         return True
     return False
 
+
 class Vulnerabilidade:
     def __init__(self, descricao, categoria, severidade, status):
         self.descricao = descricao
@@ -94,6 +95,7 @@ class Vulnerabilidade:
             return cls(dados["descricao"], dados["categoria"],
                     dados["severidade"], dados["status"])
 
+
 class Equipamento:
     def __init__(self, id_equipamento, nome, responsavel, localizacao, tipo):
         self.id = id_equipamento
@@ -103,14 +105,36 @@ class Equipamento:
         self.tipo = tipo
         self.vulnerabilidades = []
 
-def adicionar_vulnerabilidades(self, vulnerabilidade):
-    self.vulnerabilidades.append(vulnerabilidade)
+    def adicionar_vulnerabilidades(self, vulnerabilidade):
+        self.vulnerabilidades.append(vulnerabilidade)
 
 
-def __str__(self):
-    return (f"ID: {self.id}"
-            f"NOME: {self.nome}"
-            f"RESPONSÁVEL: {self.responsavel}"
-            f"LOCALIZAÇÃO: {self.localizacao}"
-            f"TIPO: {self.tipo.nome}"
-            )
+    def __str__(self):
+        return (f"ID: {self.id}"
+                f"NOME: {self.nome}"
+                f"RESPONSÁVEL: {self.responsavel}"
+                f"LOCALIZAÇÃO: {self.localizacao}"
+                f"TIPO: {self.tipo.nome}"
+                )
+
+    def to_dict(self):
+        vulnerabilidades = []
+        for v in self.vulnerabilidades:
+            vulnerabilidades.append(v.to_dict)
+
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "responsável": self.responsavel,
+            "localização": self.localizacao,
+            "tipo": self.tipo.value,
+            "vulnerabilidades": [v.to_dict() for v in self.vulnerabilidades]  
+        }
+
+    @classmethod
+    def from_dict(cls, dados):
+        equipamento = cls(dados["id"], dados["nome"], dados["responsavel"],
+                          dados["localizacao"], TipoAtivo(dados["tipo"]))
+        for v in dados["vulnerabilidades"]:
+            equipamento.adicionar_vulnerabilidade(Vulnerabilidade.from_dict(v))
+        return equipamento
