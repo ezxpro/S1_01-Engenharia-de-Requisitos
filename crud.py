@@ -1,5 +1,5 @@
 import tipos
-import ativos
+from ativos import Equipamento, Vulnerabilidade
 
 class CRUD:
     def create(self):

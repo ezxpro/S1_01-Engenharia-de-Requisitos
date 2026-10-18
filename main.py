@@ -1,13 +1,12 @@
-from tipos import TipoAtivo
-import ativos
-import persistencia
+from ativos import Inventario
+from persistencia import Persistencia
 from crud import CRUD
 
 # SISTEMA DE CADASTRAO E GERENCIAMENTO DE ATIVOS E DADOS DE TI
 
 
 def main():
-    crud = CRUD()
+    crud = CRUD(Inventario(Persistencia()))
     while True:
         print("== MENU ==")
         print('''Selecione uma das seguintes opções:
