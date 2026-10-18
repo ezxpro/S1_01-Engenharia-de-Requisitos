@@ -40,6 +40,8 @@ def main():
                     crud.cadastrar_vulnerabilidade()
                 case 6:
                     crud.ver_vulnerabilidades()
+                case 7:
+                    crud.ver_risco()
                 case _:
                     print("\nOpção não implementada ou inválida.\n")
                     

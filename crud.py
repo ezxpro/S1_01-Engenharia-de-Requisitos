@@ -224,3 +224,12 @@ class CRUD:
         for e in equipamentos:
             print(f"[{e.id}] {e.nome}: risco próprio = {e.risco_proprio():.2f} | risco efetivo = {e.risco_efetivo():.2f}")
         print("\n(valores fictícios por enquanto)\n")
+
+    def ver_risco(self):
+        print('== RISCO DOS ATIVOS ==')
+        if not self.inv.equipamentos:
+            print("\nNenhum ativo cadastrado.\n")
+            return
+        for e in self.inv.equipamentos.values():
+            print(f"[{e.id}] {e.nome}: risco próprio = {e.risco_proprio():.2f} | risco efetivo = {e.risco_efetivo():.2f}")
+        print("\n(valores fictícios por enquanto)\n")
