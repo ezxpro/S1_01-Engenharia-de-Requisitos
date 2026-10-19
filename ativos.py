@@ -160,3 +160,41 @@ class Inventario:
 
     def buscar(self, id_equipamento):
         return self.equipamentos.get(id_equipamento)
+
+        def buscar_por_nome(self, trecho):
+        trecho = trecho.strip().lower()
+        return [e for e in self.equipamentos.values() if trecho in e.nome.lower()]
+
+    def buscar_por_responsavel(self, trecho):
+        trecho = trecho.strip().lower()
+        return [e for e in self.equipamentos.values() if trecho in e.responsavel.lower()]
+
+    def atualizar(self, id_equipamento, nome=None, responsavel=None, localizacao=None, tipo=None):
+        equipamento = self.buscar(id_equipamento)
+        if equipamento is None:
+            return False
+        if nome:
+            equipamento.nome = nome
+        if responsavel:
+            equipamento.responsavel = responsavel
+        if localizacao:
+            equipamento.localizacao = localizacao
+        if tipo:
+            equipamento.tipo = tipo
+        self.salvar()
+        return True
+
+    def deletar(self, id_equipamento):
+        if id_equipamento in self.equipamentos:
+            del self.equipamentos[id_equipamento]
+            self.salvar()
+            return True
+        return False
+
+    def adicionar_vulnerabilidade(self, id_equipamento, vulnerabilidade):
+        equipamento = self.buscar(id_equipamento)
+        if equipamento is None:
+            return False
+        equipamento.adicionar_vulnerabilidade(vulnerabilidade)
+        self.salvar()
+        return True
